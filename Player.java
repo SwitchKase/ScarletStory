@@ -78,7 +78,9 @@ public class Player {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	 
+	public void takeDamage(int dmg){
+		this.setHealth(this.getHealth-dmg);
+	}
 	
 
 }
