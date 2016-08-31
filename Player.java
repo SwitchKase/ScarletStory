@@ -1,30 +1,42 @@
 package Game;
 
 public class Player {
-	 private int health,mana,dmg,crit,speed;
+	 private int currentHealth,maxHealth,currentMana,maxMana,crit,speed,posX,posY;
 	 private String clas;
+	 private Item[] miscItems;
+	 private Item[] equippedItems;
+	 
 	 
 	 public Player()
 	 {
 		 setHealth(100);
 		 setMana(100);
+		 posX=0;
+		 posY=0;
+		 miscItems = new Item[10];
+		 equippedItems[] = new Item[6];
+		 //Slots 0-2 are armor(Head,Torso,Legs)
+		 //Slots 3-4 are weapons(Left,Right)
+		 //Slot 5 is usable items ex. smokebombs,scrolls
 	 }
 	 
 	 public Player(String clas)
 	 {
+	 	Player();
+	 	this.clas=clas;
 		 switch(clas.toLowerCase())
 		 {
-		 case "rogue" : setHealth(20); setMana(100);
+		 case "rogue" : setMaxHealth(20); setMaxMana(100);
 		 	break;
-		 case "warrior" : setHealth(200); setMana(100);
+		 case "warrior" : setMaxHealth(200); setMaxMana(100);
 		 	break;
-		 case "elementalist" : setHealth(100); setMana(150);
+		 case "elementalist" : setMaxHealth(100); setMaxMana(150);
 		 	break;
-		 case "beserker" :  setHealth(130); setMana(100);
+		 case "beserker" :  setMaxHealth(130); setMaxMana(100);
 		 	break;
-		 case "beastmaster" :  setHealth(100); setMana(100);
+		 case "beastmaster" :  setMaxHealth(100); setMaxMana(100);
 		 	break; 
-		 case "priest" :  setHealth(800); setMana(150);
+		 case "priest" :  setMaxHealth(80); setMaxMana(150);
 		 	break;
 		 
 		 }
@@ -39,28 +51,32 @@ public class Player {
 		this.clas = clas;
 	}
 
-	public int getHealth() {
-		return health;
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+	public int getMaxHealth(){
+		return maxHealth;
 	}
 
-	public void setHealth(int health) {
-		this.health = health;
+	public void setCurrentHealth(int health) {
+		this.currentHealth = health;
+	}
+	public void setMaxHealth(int health){
+		this.maxHealth=health;
 	}
 
-	public int getMana() {
-		return mana;
+	public int getCurrentMana() {
+		return currentMana;
+	}
+	public int getMaxMana(){
+		return maxMana;
 	}
 
-	public void setMana(int mana) {
-		this.mana = mana;
+	public void setCurrentMana(int mana) {
+		this.currentMana = mana;
 	}
-
-	public int getDmg() {
-		return dmg;
-	}
-
-	public void setDmg(int dmg) {
-		this.dmg = dmg;
+	public void setMaxMana(int mana){
+		this.maxMana=mana;
 	}
 
 	public int getCrit() {
@@ -79,7 +95,10 @@ public class Player {
 		this.speed = speed;
 	}
 	public void takeDamage(int dmg){
-		this.setHealth(this.getHealth-dmg);
+		this.setCurrentHealth(this.getCurrentHealth-dmg);
+	}
+	public void spendMana(int manaCost){
+		this.setCurrentMana(this.getCurrentMana()-manaCost);
 	}
 	
 
