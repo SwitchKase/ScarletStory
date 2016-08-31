@@ -19,11 +19,11 @@ import org.newdawn.slick.SpriteSheet;
 
 public class Main extends BasicGame {
 	private int direct,location = 0;
-	private Color color;
+	private Color color,healthColor;
 	private Image grass,person,walk,walkL,grassL,personL,InvDude,Slime;
 	private SpriteSheet charSheetR,dirtR,charSheetL,dirtL,slimeSheet;
 	private Animation charAnimationR,dirtAnimationR,charAnimationL,dirtAnimationL,slimeAnimation;
-	private int running = 0;
+	private static State state = State.Menu;
 	Player plyr1 = new Player();
 	
 	public Main(String title) {
@@ -40,6 +40,7 @@ public class Main extends BasicGame {
 	public void init(GameContainer cont) throws SlickException {
 		// TODO Auto-generated method stub
 	 color = new Color(0,200,0);
+	 healthColor = new Color (0,256,0);
 	 grass = new Image("Data/grass.png");
 	 grassL = new Image("Data/grassL.png");
 	 walk = new Image("Data/charWalk.png");
@@ -72,10 +73,20 @@ public class Main extends BasicGame {
 	public void render(GameContainer cont, Graphics g) throws SlickException {
 		int mX = Mouse.getX();
 		int mY = Mouse.getY();
-		g.drawString(running+"", 10, 50);
 		
-		if(running == 1)
+		
+		if(state == State.Game)
 		{
+		healthColor = new Color(plyr1.getHealth(),356-plyr1.getHealth(),0);
+		g.setColor(healthColor);
+		g.fillRect(20, 325, 300, 25);
+		g.setColor(Color.white);
+		g.drawRect(19, 324,301, 26);
+		g.setColor(Color.blue);
+		g.fillRect(20,351, 200, 15);
+		g.setColor(Color.white);
+		g.drawRect(19, 350,201, 16);
+	
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, cont.getWidth(), 300);
 		g.setColor(Color.darkGray);
@@ -98,7 +109,7 @@ public class Main extends BasicGame {
 		
 		Boolean right = Keyboard.isKeyDown(Keyboard.KEY_D);
 		Boolean left = Keyboard.isKeyDown(Keyboard.KEY_A);
-		int jump  = 0;
+		Boolean jump = Keyboard.isKeyDown(Keyboard.KEY_SPACE);
 		
 		
 		slimeAnimation.draw(cont.getWidth()/2 + 100, cont.getHeight()-75 );
@@ -188,51 +199,84 @@ public class Main extends BasicGame {
 		// creates a square at mouse location
 		// g.fillRect(mX-25, cont.getHeight()-mY-25, 50, 50);
 	
-			if(jump == 1)
+			if(jump)
 			{
 			
 			}
 		}
 		
-		if(running == 0)
+		if(state == State.Menu)
 		{
+			
+			g.drawString(cont.getHeight()+"", 20, 20);
+			g.drawString(Mouse.getY()+"", 20, 40);
 			g.drawString("Menu", 300, 500);
 			g.drawRect(500, 500, 200, 100);
 			g.drawString("PLAY", 580, 550);
 			g.drawRect(750, 500, 200, 100);
 			g.drawString("CHANGE CLASS", 800, 550);
 			g.drawRect(1000, 500, 200, 100);
-			if(Mouse.isButtonDown(0)&& Mouse.getX()>500 && Mouse.getX()<700 && Mouse.getY() > 500 && Mouse.getY()<600)
+			if(Mouse.isButtonDown(0)&& Mouse.getX()>500 && Mouse.getX()<700 && Mouse.getY() < cont.getHeight()-500 && Mouse.getY()>cont.getHeight()-600)
 			{
-				running = 1;
+				state = State.Game;
 			}
-			if(Mouse.isButtonDown(0)&& Mouse.getX()>750 && Mouse.getX()<950 && Mouse.getY() > 500 && Mouse.getY()<600)
+			if(Mouse.isButtonDown(0)&& Mouse.getX()>750 && Mouse.getX()<950 && Mouse.getY() < cont.getHeight()-500 && Mouse.getY()>cont.getHeight()-600)
 			{
-				running = 2;
+				state = State.Classes;
 			}
 			
 		}
-		if(running == 2)
+		if(state == State.Classes)
 		{
+			
 			
 			g.drawRect(500, 300, 200, 100);
 			g.drawString("Rogue", 580, 350);
+			if(Mouse.isButtonDown(0)&& Mouse.getX()>500 && Mouse.getX()<700 && Mouse.getY() < cont.getHeight()-300 && Mouse.getY()>cont.getHeight()-400)
+			{
+				plyr1.setClas("rogue");
+			}
+			
 			g.drawRect(750, 300, 200, 100);
 			g.drawString("Warrior", 800, 350);
+			if(Mouse.isButtonDown(0)&& Mouse.getX()>750 && Mouse.getX()<950 && Mouse.getY() < cont.getHeight()-300 && Mouse.getY()>cont.getHeight()-400)
+			{
+				plyr1.setClas("warrior");
+			}
+			
 			g.drawRect(1000, 300, 200, 100);
 			g.drawString("Elementalist", 1050, 350);
+			if(Mouse.isButtonDown(0)&& Mouse.getX()>1000 && Mouse.getX()<1200 && Mouse.getY() < cont.getHeight()-300 && Mouse.getY()>cont.getHeight()-400)
+			{
+				plyr1.setClas("elementalist");
+			}
+			
 			g.drawRect(500, 500, 200, 100);
 			g.drawString("Beserker", 580, 550);
+			if(Mouse.isButtonDown(0)&& Mouse.getX()>500 && Mouse.getX()<700 && Mouse.getY() < cont.getHeight()-500 && Mouse.getY()>cont.getHeight()-600)
+			{
+				plyr1.setClas("beserker");
+			}
+			
 			g.drawRect(750, 500, 200, 100);
 			g.drawString("Beastmaster", 800, 550);
+			if(Mouse.isButtonDown(0)&& Mouse.getX()>750 && Mouse.getX()<950 && Mouse.getY() < cont.getHeight()-500 && Mouse.getY()>cont.getHeight()-600)
+			{
+				plyr1.setClas("beastmaster");
+			}
+			
 			g.drawRect(1000, 500, 200, 100);
 			g.drawString("Priest", 1050, 550);
+			if(Mouse.isButtonDown(0)&& Mouse.getX()>1050 && Mouse.getX()<1250 && Mouse.getY() < cont.getHeight()-500 && Mouse.getY()>cont.getHeight()-600)
+			{
+				plyr1.setClas("priest");
+			}
 			
 			g.drawRect(100, 100, 100, 50);
 			g.drawString("BACK", 110, 125);
-			if(Mouse.isButtonDown(0)&& Mouse.getX()>100 && Mouse.getX()<200 && Mouse.getY() > 100 && Mouse.getY()< 150)
+			if(Mouse.isButtonDown(0)&& Mouse.getX()>100 && Mouse.getX()<200 && Mouse.getY() < cont.getHeight()-100 && Mouse.getY() > cont.getHeight()-150 )
 			{
-				running = 0;
+				state = State.Menu;
 				
 			}
 		}
@@ -245,7 +289,7 @@ public class Main extends BasicGame {
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
 		
-		AppGameContainer app = new AppGameContainer(new Main("Test"));
+		AppGameContainer app = new AppGameContainer(new Main("Scarlet Story"));
 		 
 		 app.setDisplayMode((int)width, (int)height, true);
 		 
