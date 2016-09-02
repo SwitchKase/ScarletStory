@@ -1,20 +1,23 @@
 package Game;
 
 public class Entity{
-  private int currentHealth,maxHealth,speed,posX,posY;
+  private int currentHealth,maxHealth,currentMana,maxManaspeed,posX,posY;
   private String type;
   private Animation[] animations;
   
   public Entity(){
     currentHealth=maxHealth=100;
+    currentMana=maxMana=100;
     speed=1;
     posX=posY=0;
     type="NULL";
     animations=new Animation[10];
   }
-  public Entity(int currentHealth,int maxHealth, int speed, int posX, int posY, String type, Animation[] animations){
+  public Entity(int currentHealth,int maxHealth,int currentMana,int maxMana, int speed, int posX, int posY, String type, Animation[] animations){
     this.currentHealth=currentHealth;
     this.maxHealth=maxHealth;
+    this.currentMana=currentMana;
+    this.maxMana=maxMana;
     this.speed=speed;
     this.posX=posX;
     this.posY=posY;
@@ -29,6 +32,12 @@ public class Entity{
   }
   public int getmaxHealth(){
     return maxHealth
+  }
+  public int getCurrentMana(){
+    return currentMana;
+  }
+  public int getMaxMana(){
+    return maxMana;
   }
   public int getSpeed(){
     return speed;
@@ -53,6 +62,12 @@ public class Entity{
   }
   public void setMaxHealth(int health){
     maxHealth=health;
+  }
+  public void setCurrentMana(int mana){
+    currentMana=mana;
+  }
+  public void setMaxMana(int mana){
+    maxMana=mana;
   }
   public void setSpeed(int speed){
     this.speed;
