@@ -1,7 +1,6 @@
 package Game;
 
 public class Player extends Entity{
-	 private int currentMana,maxMana,crit;
 	 private Item[] miscItems;
 	 private Item[] equippedItems;
 	 
@@ -9,8 +8,6 @@ public class Player extends Entity{
 	 public Player()
 	 {
 		 super();
-		 setMaxMana(100);
-		 setCurrentMana(100);
 		 miscItems = new Item[10];
 		 equippedItems[] = new Item[6];
 		 //Slots 0-2 are armor(Head,Torso,Legs)
@@ -40,35 +37,5 @@ public class Player extends Entity{
 		 }
 		 
 	 }
-
-	public int getCurrentMana() {
-		return currentMana;
-	}
-	public int getMaxMana(){
-		return maxMana;
-	}
-
-	public void setCurrentMana(int mana) {
-		this.currentMana = mana;
-	}
-	public void setMaxMana(int mana){
-		this.maxMana=mana;
-	}
-
-	public int getCrit() {
-		return crit;
-	}
-
-	public void setCrit(int crit) {
-		this.crit = crit;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-	public void spendMana(int manaCost){
-		this.setCurrentMana(this.getCurrentMana()-manaCost);
-	}
-	
 
 }
