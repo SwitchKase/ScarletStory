@@ -1,7 +1,7 @@
 package Game;
 
 public class Entity{
-  private int currentHealth,maxHealth,currentMana,maxManaspeed,posX,posY;
+  private int currentHealth,maxHealth,currentMana,maxMana,speed,posX,posY;
   private String type;
   private Animation[] animations;
   
