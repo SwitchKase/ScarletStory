@@ -37,5 +37,29 @@ public class Player extends Entity{
 		 }
 		 
 	 }
+	 
+	 public void displayInventory(Graphics g){
+	 	int originX=this.getXPos()+32-(miscItems.length/2);
+	 	int originY=this.getYPos()+25;
+	 	
+	 	g.drawRect(originX,originY,miscItems.length*20,20);
+	 	
+	 	for(int i=0;i<miscItems.length;i++){
+	 		miscItems[i].getInventoryAnimation().draw(originX+20*i,originY,20,20);
+	 	}
+	 	//draws item inventory
+	 	
+	 	originX=this.getposX()+32-60;
+	 	originY=this.getY()+95;
+	 	
+	 	g.drawRect(originX,originY,60,60);
+	 	for(int i=0;i<3;i++){
+	 		equippedItems[i].getInventoryAnimation.draw(originX+20,originY-20*i,20,20);
+	 	}
+	 	equippedItems[3].getInventoryAnimation().draw(originX,originY-20,20,20);
+	 	equippedItems[4].getInventoryAnimation().draw(originX+40,originY-20,20,20);
+	 	equippedItems[5].getInventoryAnimation().draw(originX+40,originY-40,20,20);
+	 	//draws equipped items
+	 }
 
 }
