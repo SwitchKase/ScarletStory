@@ -4,6 +4,7 @@ public class Entity{
   private int currentHealth,maxHealth,currentMana,maxMana,speed,posX,posY,vX,vY;
   private String type;
   private Animation[] animations;
+  private Rectangle hitBox;
   
   public Entity(){
     currentHealth=maxHealth=100;
@@ -13,8 +14,9 @@ public class Entity{
     vX=vY=0;
     type="NULL";
     animations=new Animation[10];
+    hitBox=new hitBox(0,0,0,0);
   }
-  public Entity(int currentHealth,int maxHealth,int currentMana,int maxMana, int speed, int posX, int posY, int vX, int vY, String type, Animation[] animations){
+  public Entity(int currentHealth,int maxHealth,int currentMana,int maxMana, int speed, int posX, int posY, int vX, int vY, int width,int height, String type, Animation[] animations){
     this.currentHealth=currentHealth;
     this.maxHealth=maxHealth;
     this.currentMana=currentMana;
@@ -24,6 +26,7 @@ public class Entity{
     this.posY=posY;
     this.vX=vX;
     this.vY=vY;
+    this.hitBox=new Rectangle(posX,posY,width,height);
     this.type=type;
     this.animations=animations;
   }
@@ -56,6 +59,9 @@ public class Entity{
   }
   public int getVY(){
     return vY;
+  }
+  public Rectangle getHitBox(){
+     return hitBox;
   }
   public String getType(){
     return type;
@@ -93,6 +99,9 @@ public class Entity{
   public void setVY(int vY){
     this.vY=vY;
   }
+  public void setHitBox(int width,int height){
+     hitBox=new Rectangle(posX,posY,width,height);
+  }
   public void setType(String type){
     this.type=type;
   }
@@ -101,7 +110,19 @@ public class Entity{
   }
   //end set methods
 
-  public void doAction(Action action){
-    action.execute(this);
-  }
+  public void doAction(Action action,Entity[] entityList){
+   
+    if(action.hasHitbox()){
+      for(int i=0;i<entityList.length;i++){
+         if(action.getHitBox(this).contains(entityList[i].getHitBox()){
+           this.doAction(this,entityList[i]);
+         }
+      }
+    }
+     else
+       action.execute(this);
+   }
+   public void doAction(Action action, Entity target){
+     action.execute(this,target);
+    }
 }
