@@ -1,7 +1,7 @@
 package Game;
 
 public class Entity{
-  private int currentHealth,maxHealth,currentMana,maxMana,speed,posX,posY;
+  private int currentHealth,maxHealth,currentMana,maxMana,speed,posX,posY,vX,vY;
   private String type;
   private Animation[] animations;
   
@@ -10,10 +10,11 @@ public class Entity{
     currentMana=maxMana=100;
     speed=1;
     posX=posY=0;
+    vX=vY=0;
     type="NULL";
     animations=new Animation[10];
   }
-  public Entity(int currentHealth,int maxHealth,int currentMana,int maxMana, int speed, int posX, int posY, String type, Animation[] animations){
+  public Entity(int currentHealth,int maxHealth,int currentMana,int maxMana, int speed, int posX, int posY, int vX, int vY, String type, Animation[] animations){
     this.currentHealth=currentHealth;
     this.maxHealth=maxHealth;
     this.currentMana=currentMana;
@@ -21,6 +22,8 @@ public class Entity{
     this.speed=speed;
     this.posX=posX;
     this.posY=posY;
+    this.vX=vX;
+    this.vY=vY;
     this.type=type;
     this.animations=animations;
   }
@@ -47,6 +50,12 @@ public class Entity{
   }
   public int getPosY(){
     return posY;
+  }
+  public int getVX(){
+    return vX;
+  }
+  public int getVY(){
+    return vY;
   }
   public String getType(){
     return type;
@@ -77,6 +86,12 @@ public class Entity{
   }
   public void setposY(int posY){
     this.posY=posY
+  }
+  public void setVX(int vX){
+    this.vX=vX;
+  }
+  public void setVY(int vY){
+    this.vY=vY;
   }
   public void setType(String type){
     this.type=type;
