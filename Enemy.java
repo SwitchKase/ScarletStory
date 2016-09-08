@@ -1,6 +1,6 @@
 package Game;
 
-public class Enemy extends Entity{
+public abstract class Enemy extends Entity{
   
   public Enemy(){
     super();
@@ -14,6 +14,6 @@ public class Enemy extends Entity{
     super(maxHealth,maxHealth,maxMana,maxMana,speed,crit,posX,posY,animations,type);
   }
   
-  }
+  public abstract void act();
 
 }
