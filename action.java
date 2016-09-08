@@ -5,6 +5,7 @@ public class Action{
   int actionStartLag, actionDuration, actionEndLag, actionDamage, actionHealing, actionManaRestore, actionManaCost, actionManaDamage;
   int selfDeltaVX, selfDeltaVY, targetDeltaVX, targetDeltaVY;
   Animation animation;
+  Rectangle hitBox;
   
   public Action(){
     actionName="NONE";
@@ -21,8 +22,9 @@ public class Action{
     targetDeltaVX=0;
     targetDeltaVY=0;
     animation=null;
+    hitBox=null;
   }
-  public Action(String actionName, int actionStartLag, int actionDuration, int actionEndLag, int actionDamage, int actionHealing, int actionManaRestore, int actionManaCost, int actionManaDamage, int sDVX, int sDVY, int tDVX, int tDVY, Animation animation){
+  public Action(String actionName, int actionStartLag, int actionDuration, int actionEndLag, int actionDamage, int actionHealing, int actionManaRestore, int actionManaCost, int actionManaDamage, int sDVX, int sDVY, int tDVX, int tDVY, Rectangle hitBox, Animation animation){
     this.actionName=actionName;
     this.actionStartLag=actionStartLag;
     this.actionDuration=actionDuration;
@@ -36,6 +38,7 @@ public class Action{
     this.selfDeltaVY=sDVY;
     this.targetDeltaVX=tDVX;
     this.targetDeltaVY=tDVY;
+    this.hitBox=hitBox;
     this.animation=animation;
   }
   
@@ -64,3 +67,13 @@ public class Action{
     me.setVY(me.getVY()+selfDeltaVY);
     animation.draw();
   }
+  public boolean hasHitBox(){
+     if(hitBox==null){
+       return false;
+     }
+     return true;
+   }
+   public Rectangle getHitBox(Entity actor){
+     return new Rectangle(actor.getPosX(),actor.getPosY(),hitBox.width,hitBox.height);
+     //Check if those are proper attributes
+   }
