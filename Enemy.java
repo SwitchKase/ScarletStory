@@ -14,6 +14,6 @@ public abstract class Enemy extends Entity{
     super(maxHealth,maxHealth,maxMana,maxMana,speed,crit,posX,posY,animations,type);
   }
   
-  public abstract void act(Entity[] entityList);
+  public abstract void act(ArrayList<Entity> entityList);
 
 }
