@@ -110,12 +110,12 @@ public class Entity{
   }
   //end set methods
 
-  public void doAction(Action action,Entity[] entityList){
+  public void doAction(Action action,ArrayList<Entity> entityList){
    
     if(action.hasHitbox()){
-      for(int i=0;i<entityList.length;i++){
-         if(action.getHitBox(this).contains(entityList[i].getHitBox()){
-           this.doAction(this,entityList[i]);
+      for(int i=0;i<entityList.size();i++){
+         if(action.getHitBox(this).contains(entityList.get(i).getHitBox()){
+           this.doAction(this,entityList.get(i));
          }
       }
     }
