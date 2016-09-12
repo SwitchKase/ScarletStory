@@ -51,7 +51,7 @@ public class Action{
     me.setVY(me.getVY()+selfDeltaVY);
     
     
-    target.setCurrentHealth(target.getCurrentHealth()-actionDamage/(target.getArmor()+1));
+    target.setCurrentHealth(target.getCurrentHealth()-actionDamage/target.getArmor());
     target.setCurrentMana(target.getCurrentMana()-actionManaDamage);
     
     target.setVX(target.getVX()+targetDeltaVX);
