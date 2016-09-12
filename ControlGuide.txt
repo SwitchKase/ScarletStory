@@ -1,0 +1,10 @@
+player controls:
+movement=WASD
+need 6 attack input strings 
+(Fast/weak, slow/strong, SECRET HIDDEN TECHNIQUE),(left hand, right hand)
+Choose dominant hand in char creation;
+default [j,k,l] uses dom hand, with Lshift uses nonDom hand;
+
+numKeys to interact with inventory;
+'q' to use item, 'e' to equip item;
+
