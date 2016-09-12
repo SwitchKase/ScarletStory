@@ -73,5 +73,12 @@ public class Player extends Entity{
 	 	
 	 	equippedItems[d].doAction(attackID);
 	 }
+	 public int getArmor(){
+	 	int totalArmor=0;
+	 	for(int i=0;i<equippedItems.length;i++){
+	 		totalArmor+=equipppedItems[i].getArmorValue();
+	 	}
+	 	return totalArmor;
+	 }
 
 }
