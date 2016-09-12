@@ -4,7 +4,7 @@ public class Item {
 	
 	
 	private String type;
-	private int dmg,value,armor,keyID,healthRestore,manaRestore;
+	private int value,armor,keyID;
 	private Animation InventoryAnimation;
 	private Action[] actions;
 	
