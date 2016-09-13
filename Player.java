@@ -61,5 +61,24 @@ public class Player extends Entity{
 	 	equippedItems[5].getInventoryAnimation().draw(originX+40,originY-40,20,20);
 	 	//draws equipped items
 	 }
+	 public void useItem(int slotID,int actionID){
+	 	miscItems[slotID].doAction(actionID)
+	 }
+	 public void attack(String dir,int attackID){
+	 	int d=0;
+	 	if (dir.equals("left")){
+	 		d=3;
+	 	}
+	 	else d=4;
+	 	
+	 	equippedItems[d].doAction(attackID);
+	 }
+	 public int getArmor(){
+	 	int totalArmor=super.getArmor();
+	 	for(int i=0;i<equippedItems.length;i++){
+	 		totalArmor+=equipppedItems[i].getArmorValue();
+	 	}
+	 	return totalArmor;
+	 }
 
 }
