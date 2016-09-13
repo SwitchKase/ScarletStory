@@ -18,13 +18,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class Main extends BasicGame {
-	private int direct,location = 0;
+	private int direct,location,jumpswtch= 0; private float charX,charY,velX,velY = 0;
 	private Color color,healthColor;
 	private Image grass,person,walk,walkL,grassL,personL,InvDude,Slime;
-	private SpriteSheet charSheetR,dirtR,charSheetL,dirtL,slimeSheet;
-	private Animation charAnimationR,dirtAnimationR,charAnimationL,dirtAnimationL,slimeAnimation;
+	private SpriteSheet charSheetR,dirtR,charSheetL,dirtL,slimeSheet,charJumpSheet;
+	private Animation charAnimationR,dirtAnimationR,charAnimationL,dirtAnimationL,slimeAnimation,charJump;
 	private static State state = State.Menu;
-	Player plyr1 = new Player();
+	
 	
 	public Main(String title) {
 		super(title);
@@ -54,12 +54,16 @@ public class Main extends BasicGame {
 	 slimeSheet = new SpriteSheet("Data/SlimeEnemy.png",64,64);
 	 charSheetR = new SpriteSheet("Data/charWalk.png", 64,64);
 	 charSheetL = new SpriteSheet("Data/charWalkL.png", 64,64);
+	 charJumpSheet = new SpriteSheet("Data/charJump.png",64,64);
+	 charJump = new Animation(charJumpSheet,100);
 	 slimeAnimation = new Animation(slimeSheet,100);
 	 charAnimationR = new Animation(charSheetR,100);
 	 charAnimationL = new Animation(charSheetL,100);
 	 dirtAnimationR = new Animation(dirtR,100);
 	 dirtAnimationL = new Animation(dirtL,100);
-	 location  = 0;}
+	 location  = 0;
+	  
+	}
 	
 	 
 
@@ -67,16 +71,49 @@ public class Main extends BasicGame {
 	public void update(GameContainer cont, int g) throws SlickException {
 		// TODO Auto-generated method stub
 		
+		
+			charX += velX;
+			charY += velY;
+			
+			if(velX > 20)
+				velX = 20;
+			
+			if(velX < -20)
+				velX = -20;
+			if(velY > 30)
+				velY = 30;
+			if(velY < -30)
+				velY = -30;
+			
+			if(charY > 0)
+				charY = 0;
+			
+			
+			if(charX > cont.getWidth())
+				charX = cont.getWidth();
+			if(charY < 0)
+			{
+				velY += 1;
+			}
+			else velY = 0;
+			
+			if(charY == 0)
+			velX /=1.1;
+		
 	}
 	
 	@Override
 	public void render(GameContainer cont, Graphics g) throws SlickException {
 		int mX = Mouse.getX();
 		int mY = Mouse.getY();
+		Player plyr1 = new Player();
+		Spawner spawn = new Spawner(this, g, cont);
 		
 		
 		if(state == State.Game)
 		{
+			
+			//g.drawImage(person,cont.getWidth()/2 + charX, cont.getHeight()-80+ charY);
 		healthColor = new Color(plyr1.getHealth(),356-plyr1.getHealth(),0);
 		g.setColor(healthColor);
 		g.fillRect(20, 325, 300, 25);
@@ -86,6 +123,7 @@ public class Main extends BasicGame {
 		g.fillRect(20,351, 200, 15);
 		g.setColor(Color.white);
 		g.drawRect(19, 350,201, 16);
+		
 	
 		g.setColor(Color.gray);
 		g.fillRect(0, 0, cont.getWidth(), 300);
@@ -101,18 +139,21 @@ public class Main extends BasicGame {
 		g.drawRect(860, 95, 50, 50);
 		g.drawRect(775, 160, 50, 50);
 		g.drawRect(835, 160, 50, 50);
+		g.drawString(""+charX, 10, 100);
+		g.drawString(""+charY, 10, 150);
+		g.drawString(""+velX, 10, 200);
+		g.drawString(""+velY, 10, 250);
 		
 		g.setColor(color);
 		g.fillRect(0, cont.getHeight()-32 ,cont.getScreenWidth(), 32);
 		
-		
+		Enemy slime = new Enemy(100,50,5,0,0,0,"Slime", slimeAnimation);
+		spawn.addEnemy(slime);
 		
 		Boolean right = Keyboard.isKeyDown(Keyboard.KEY_D);
 		Boolean left = Keyboard.isKeyDown(Keyboard.KEY_A);
 		Boolean jump = Keyboard.isKeyDown(Keyboard.KEY_SPACE);
 		
-		
-		slimeAnimation.draw(cont.getWidth()/2 + 100, cont.getHeight()-75 );
 		
 		// TODO Auto-generated method stub
 		//g.drawString(Mouse.getX()+"", 10, 20);
@@ -121,39 +162,67 @@ public class Main extends BasicGame {
 			color = new Color(128 , 0, 0);
 		else
 				color = new Color(location/100 , 128-location/100 , 0 );
+		
+		
 		g.drawString(location +"", 10 , 40);
 		
-		if(right){
+		if(jump && charY == 0)
+		{
+			
+			velY = -15f;
+			//g.drawImage(personL,cont.getWidth()/2 + charX, cont.getHeight()-80 + charY);
+			// charJump.draw(cont.getWidth()/2 + charX, cont.getHeight()-80 + charY);
+
+			//	for(int x = 0; x < cont.getWidth(); x+=64){
+				//	g.drawImage(dirtAnimationR.getCurrentFrame(), x, cont.getHeight()-32);
+						//									}
+		
+		}
+		if(velY != 0)
+		{
+			charJump.draw(cont.getWidth()/2 + charX - 5, cont.getHeight()-90 + charY );
+		}
+		
+		
+		if(right && charY == 0){
 			direct =1;
 			dirtAnimationR.start();
 			location++;
+			velX += .5f;
 			
-		charAnimationR.draw(cont.getWidth()/2, cont.getHeight()-80 );
-		for(int x = 0; x < cont.getWidth(); x+=64){
+		//charAnimationR.draw(cont.getWidth()/2 + charX, cont.getHeight()-80 + charY );
+		//for(int x = 0; x < cont.getWidth(); x+=64){
+			g.drawImage(person,cont.getWidth()/2+ charX, cont.getHeight()-80 + charY);
+			
+			//dirtAnimationR.draw(x,cont.getHeight()-32);
 			
 			
-			dirtAnimationR.draw(x,cont.getHeight()-32);
 			
-			
-			
-		}
-		}
-		else if(left)
+											//		}
+		
+					}
+		else if(left && charY == 0)
 		{
 			
 			 direct = 2;
 			dirtAnimationL.start();
+			velX -= .5f;
 			
-			charAnimationL.draw(cont.getWidth()/2, cont.getHeight()-80 );
-			for(int x = 0; x < cont.getWidth(); x+=64){
+			//charAnimationL.draw(cont.getWidth()/2 + charX, cont.getHeight()-80 + charY);
+			//for(int x = 0; x < cont.getWidth(); x+=64){
 				
-				
-				dirtAnimationL.draw(x,cont.getHeight()-32);}
+			g.drawImage(personL,cont.getWidth()/2 + charX, cont.getHeight()-80 + charY);
+			//	dirtAnimationL.draw(x,cont.getHeight()-32);}
 			location--;
 			
 		}
-		else
+		
+		if(!left && !right && velY == 0)
 		{
+			
+			g.drawImage(person,cont.getWidth()/2 + charX, cont.getHeight()-80+ charY);
+		
+			/*
 		
 			dirtAnimationR.stop();
 			dirtAnimationL.stop();
@@ -168,8 +237,8 @@ public class Main extends BasicGame {
 				
 				for(int x = 0; x < cont.getWidth(); x+=64){
 					g.drawImage(dirtAnimationR.getCurrentFrame(), x, cont.getHeight()-32);
-			}
-			}
+															}
+							}
 			
 			if(direct  == 1){
 				
@@ -180,8 +249,8 @@ public class Main extends BasicGame {
 					
 					for(int x = 0; x < cont.getWidth(); x+=64){
 						g.drawImage(dirtAnimationR.getCurrentFrame(), x, cont.getHeight()-32);
-				}
-				}
+																}
+							}
 			
 			if(direct  == 2){
 				
@@ -192,18 +261,20 @@ public class Main extends BasicGame {
 					
 					for(int x = 0; x < cont.getWidth(); x+=64){
 						g.drawImage(dirtAnimationL.getCurrentFrame(), x, cont.getHeight()-32);
-				}
-				}
-		
+																}
+							}
+		*/
 		}
+		
 		// creates a square at mouse location
 		// g.fillRect(mX-25, cont.getHeight()-mY-25, 50, 50);
 	
-			if(jump)
-			{
 			
-			}
+		
+		
+			
 		}
+		
 		
 		if(state == State.Menu)
 		{
@@ -280,7 +351,8 @@ public class Main extends BasicGame {
 				
 			}
 		}
-	}
+		
+		}
 	
 	public static void main(String args[]) throws SlickException
 	{
@@ -292,7 +364,7 @@ public class Main extends BasicGame {
 		AppGameContainer app = new AppGameContainer(new Main("Scarlet Story"));
 		 
 		 app.setDisplayMode((int)width, (int)height, true);
-		 
+		 app.setTargetFrameRate(60);
 		 
 		 app.start();
 	}
