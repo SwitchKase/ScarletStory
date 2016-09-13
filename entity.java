@@ -1,7 +1,7 @@
 package Game;
 
 public class Entity{
-  private int currentHealth,maxHealth,currentMana,maxMana,speed,posX,posY,vX,vY;
+  private int currentHealth,maxHealth,currentMana,maxMana,armor,speed,posX,posY,vX,vY;
   private String type;
   private Animation[] animations;
   private Rectangle hitBox;
@@ -9,6 +9,7 @@ public class Entity{
   public Entity(){
     currentHealth=maxHealth=100;
     currentMana=maxMana=100;
+    armor=1;
     speed=1;
     posX=posY=0;
     vX=vY=0;
@@ -16,11 +17,12 @@ public class Entity{
     animations=new Animation[10];
     hitBox=new hitBox(0,0,0,0);
   }
-  public Entity(int currentHealth,int maxHealth,int currentMana,int maxMana, int speed, int posX, int posY, int vX, int vY, int width,int height, String type, Animation[] animations){
+  public Entity(int currentHealth,int maxHealth,int currentMana,int maxMana, int armor, int speed, int posX, int posY, int vX, int vY, int width,int height, String type, Animation[] animations){
     this.currentHealth=currentHealth;
     this.maxHealth=maxHealth;
     this.currentMana=currentMana;
     this.maxMana=maxMana;
+    this.armor=armor;
     this.speed=speed;
     this.posX=posX;
     this.posY=posY;
@@ -44,6 +46,9 @@ public class Entity{
   }
   public int getMaxMana(){
     return maxMana;
+  }
+  public int getArmor(){
+    return armor;
   }
   public int getSpeed(){
     return speed;
@@ -83,6 +88,9 @@ public class Entity{
   }
   public void setMaxMana(int mana){
     maxMana=mana;
+  }
+  public void setArmor(int armor){
+    this.armor=armor;
   }
   public void setSpeed(int speed){
     this.speed;
