@@ -51,7 +51,7 @@ public class Action{
     me.setVY(me.getVY()+selfDeltaVY);
     
     
-    target.setCurrentHealth(target.getCurrentHealth()-actionDamage);
+    target.setCurrentHealth(target.getCurrentHealth()-actionDamage/target.getArmor());
     target.setCurrentMana(target.getCurrentMana()-actionManaDamage);
     
     target.setVX(target.getVX()+targetDeltaVX);
@@ -60,7 +60,7 @@ public class Action{
     animation.draw();
   }
   
-  public void execute(Item item, Entity user){
+  public void execute(Entity user){
     user.setHealth(user.getHealth()+actionHealing);
     user.setMana(user.getMana()+actionManaRestore);
     me.setVX(me.getVX()+selfDeltaVX);
