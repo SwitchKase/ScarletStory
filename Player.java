@@ -7,7 +7,11 @@ public class Player extends Entity{
 	 
 	 public Player()
 	 {
-		 super();
+	 	
+	 	Animation[] animations= //ETHAN PUT THE ANIMATIONS IN FOR PLAYER
+	 	
+	 	
+		 super(200,200,100,100,1,5,20,20,0,0,48,64,"warrior",animations);
 		 miscItems = new Item[10];
 		 equippedItems[] = new Item[6];
 		 //Slots 0-2 are armor(Head,Torso,Legs)
