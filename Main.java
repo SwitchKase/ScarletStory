@@ -147,7 +147,7 @@ public class Main extends BasicGame {
 		g.setColor(color);
 		g.fillRect(0, cont.getHeight()-32 ,cont.getScreenWidth(), 32);
 		
-		Enemy slime = new Enemy(100,50,5,0,0,0,"Slime", slimeAnimation);
+		Enemy slime = new Enemy(100,50,0,5,cont.getHeight()-90,cont.getWidth()-100,0,0,50,50,"Slime", slimeAnimation);
 		spawn.addEnemy(slime);
 		
 		Boolean right = Keyboard.isKeyDown(Keyboard.KEY_D);
