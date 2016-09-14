@@ -114,13 +114,13 @@ public class Main extends BasicGame {
 		{
 			
 			//g.drawImage(person,cont.getWidth()/2 + charX, cont.getHeight()-80+ charY);
-		healthColor = new Color(plyr1.getHealth(),356-plyr1.getHealth(),0);
+		healthColor = new Color(plyr1.getCurrentHealth(),356-plyr1.getCurrentHealth(),0);
 		g.setColor(healthColor);
-		g.fillRect(20, 325, 300, 25);
+		g.fillRect(20, 325, 300*(plyr1.getCurrentHealth()/plyr1.getMaxHealth()), 25);
 		g.setColor(Color.white);
 		g.drawRect(19, 324,301, 26);
 		g.setColor(Color.blue);
-		g.fillRect(20,351, 200, 15);
+		g.fillRect(20,351, 200*(plyr1.getCurrentMana()/plyr1.getMaxMana()), 15);
 		g.setColor(Color.white);
 		g.drawRect(19, 350,201, 16);
 		
