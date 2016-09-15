@@ -63,8 +63,8 @@ public class Action{
   public void execute(Entity user){
     user.setHealth(user.getHealth()+actionHealing);
     user.setMana(user.getMana()+actionManaRestore);
-    me.setVX(me.getVX()+selfDeltaVX);
-    me.setVY(me.getVY()+selfDeltaVY);
+    user.setVX(user.getVX()+selfDeltaVX);
+    user.setVY(user.getVY()+selfDeltaVY);
     animation.draw();
   }
   public boolean hasHitBox(){
